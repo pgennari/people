@@ -1,0 +1,40 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Vem-vindo ao Acordemus
+    style.
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        max-width: 600px;
+        margin: auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border: 1px solid #dddddd;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .codigo{
+        text-align: center;
+        font-size: 3em;
+        margin: auto;
+        padding: 20px;
+      }
+  body
+    .container
+      .header
+        h1 Bem vindo!
+      p Olá #{name},
+      p Obrigado por se inscrever! Por favor, informe o código abaixo para verificar seu e-mail:
+      p
+        .codigo #{otp}
+      p
+      p Se você não criou uma conta no Acordemus, por favor, ignore este e-mail.

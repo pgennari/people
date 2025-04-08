@@ -1,0 +1,57 @@
+networks:
+  people_network:
+    driver: bridge
+
+services:
+  fakesmtp:
+    container_name: people_smtpserver
+    hostname: smtpserver
+    image: haravich/fake-smtp-server:latest
+    restart: always
+    ports:
+      - 1025:1025
+      - 1080:1080
+    networks:
+      - people_network
+
+  mongodb:
+    container_name: people_mongodb
+    hostname: mongodb
+    image: bitnami/mongodb:latest
+    restart: always
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - people_mongodb:/bitnami/mongodb
+    ports:
+      - 27017:27017
+    environment:
+      - MONGODB_DATABASE=people_eventsource
+      - MONGODB_ROOT_PASSWORD=secure
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_REPLICA_SET_NAME=rs0
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+    networks:
+      - people_network
+
+  nodejs-app:
+    container_name: people_nodejs_app
+    hostname: nodejs-app
+    build: .
+    restart: always
+    ports:
+      - 3000:3000
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app
+    depends_on:
+      mongodb:
+        condition: service_started
+    env_file: .env
+    networks:
+      - people_network
+
+volumes:
+  people_mongodb:
