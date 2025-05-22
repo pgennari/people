@@ -40,6 +40,9 @@ export class People {
             name: args.name,
             email: args.email,
             phoneNumber: args.phoneNumber,
+            socialName: args.socialName,
+            birthDate: args.birthDate,
+            cpf: args.cpf,
           },
         }),
       ]);
