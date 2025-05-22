@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { setupStaticMethods } from './setup';
 import { MicroserviceOptions } from '@nestjs/microservices';
-import { ETLWorker } from './elt-worker';
+import { ETLWorker } from './etl-worker';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
